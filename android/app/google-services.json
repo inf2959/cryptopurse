@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "472320705705",
+    "project_id": "mycryptowallet-7b823",
+    "storage_bucket": "mycryptowallet-7b823.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472320705705:android:c7d73db58d8301afa015b8",
+        "android_client_info": {
+          "package_name": "com.mycryptowallet.mycryptowallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472320705705-vj8q9895sqn0e2tggjtitbj58ivar6s3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCCbXPaYuw9-6sKTVWIjugHJEl-szTnE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472320705705-vj8q9895sqn0e2tggjtitbj58ivar6s3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
