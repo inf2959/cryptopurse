@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:mycryptowallet/screens/login_screen.dart';
 import 'package:mycryptowallet/screens/signup_screen.dart';
 import 'package:mycryptowallet/routes/api_routes.dart';
-import 'package:mycryptowallet/widgets/loadingscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  bool loggedIn = false;
+
   String ethereum = "";
   String bitcoin = "";
   String tether = "";
@@ -55,14 +57,33 @@ class _MyHomePageState extends State<MyHomePage> {
   String dogecoin = "";
   String litecoin = "";
 
-
   @override
   void initState() {
     getValues();
+    //firebaseCheck();
+  }
+
+  /*static const List<Widget> _widgetOptions = <Widget>[
+    //WalletScreen(),
+  ];*/
+
+  /*firebaseCheck() async {
+    if (FirebaseAuth.instance.currentUser! != null) {
+      loggedIn = true;
+      setState(() {});
+      print (FirebaseAuth.instance.currentUser!);
+    } else {
+      loggedIn = false;
+      setState(() {});
+    }
+  }*/
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+    loggedIn = false;
   }
 
   getValues() async {
-    LoadingScreen();
     ethereum = await getPrice("ethereum");
     bitcoin = await getPrice("bitcoin");
     tether = await getPrice("tether");
@@ -73,12 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
     polkadot = await getPrice("polkadot");
     dogecoin = await getPrice("dogecoin");
     litecoin = await getPrice("litecoin");
-    
-    setState(() {});
+
+    setState(() {
+    });
   }
 
-  Widget createValues (String icon, String id) {
-
+  Widget createValues(String icon, String id) {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
@@ -94,100 +115,125 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 350,
             child: Row(
               children: [
-                Image.network(
-                  icon,width: 40, height:40,
-                ),
-                Text(
-                  id,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.white),
-                ),
+                Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Image.network(
+                      icon,
+                      width: 30,
+                      height: 30,
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
+                      id,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.white),
+                    )),
                 Spacer(),
                 if (id == "Ethereum")
-                Text(
-                  ethereum + "€",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.white),
-                ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        ethereum + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Bitcoin")
-                  Text(
-                    bitcoin + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        bitcoin + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Tether")
-                  Text(
-                    tether + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        tether + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Ripple")
-                  Text(
-                    ripple + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        ripple + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Dogecoin")
-                  Text(
-                    dogecoin + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        dogecoin + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Binancecoin")
-                  Text(
-                    bnb + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        bnb + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Cardano")
-                  Text(
-                    cardano + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        cardano + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Solana")
-                  Text(
-                    solana + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        solana + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Polkadot")
-                  Text(
-                    polkadot + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        polkadot + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
                 if (id == "Litecoin")
-                  Text(
-                    litecoin + "€",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(
+                        litecoin + "€",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white),
+                      )),
               ],
             )));
-
   }
 
   @override
@@ -220,51 +266,90 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                      child: Text("Register",
-                          style: TextStyle(fontSize: 14, color: Colors.white)),
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.only(
-                                  top: 20, right: 60, left: 60, bottom: 20)),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.red),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                  Visibility(
+                      visible: true,
+                      child: TextButton(
+                          child: Text("Register",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white)),
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.only(
+                                      top: 20,
+                                      right: 60,
+                                      left: 60,
+                                      bottom: 20)),
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                       side: BorderSide(color: Colors.white)))),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpScreen()));
-                        ;
-                      }),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpScreen()));
+                            ;
+                          })),
                   Spacer(),
-                  TextButton(
-                      child: Text("Sign in",
-                          style: TextStyle(fontSize: 14, color: Colors.white)),
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.only(
-                                  top: 20, right: 60, left: 60, bottom: 20)),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.red),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color.fromRGBO(6, 193, 52, 1)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                  Visibility(
+                      visible: true,
+                      child: TextButton(
+                          child: Text("Sign in",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white)),
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.only(
+                                      top: 20,
+                                      right: 60,
+                                      left: 60,
+                                      bottom: 20)),
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color.fromRGBO(6, 193, 52, 1)),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ))),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                        ;
-                      }),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                            ;
+                          })),
+                  Visibility(
+                      visible: loggedIn,
+                      child: TextButton(
+                          child: Text("Sign out",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white)),
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.only(
+                                      top: 20,
+                                      right: 60,
+                                      left: 60,
+                                      bottom: 20)),
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red),
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ))),
+                          onPressed: () {
+                            signOut();
+                          setState(() {
+                          });
+                          })),
                 ],
               )),
           Divider(
@@ -274,55 +359,32 @@ class _MyHomePageState extends State<MyHomePage> {
             endIndent: 0,
             color: Colors.white,
           ),
-          createValues("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/480px-Ethereum-icon-purple.svg.png", "Ethereum"),
-          createValues("https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1024px-Bitcoin.svg.png", "Bitcoin"),
-          createValues("https://cryptologos.cc/logos/tether-usdt-logo.png", "Tether"),
-          createValues("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Binance-coin-bnb-logo.png/800px-Binance-coin-bnb-logo.png", "Binancecoin"),
-          createValues("https://cryptologos.cc/logos/cardano-ada-logo.png", "Cardano"),
-          createValues("https://cryptologos.cc/logos/xrp-xrp-logo.png?v=023", "Ripple"),
-          createValues("https://cryptologos.cc/logos/solana-sol-logo.png?v=023", "Solana"),
-          createValues("https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=023", "Polkadot"),
-          createValues("https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=023", "Dogecoin"),
-          createValues("https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=023", "Litecoin"),
-          /*SingleChildScrollView(
-            child: Column(children: [
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(38, 35, 52, 1),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10.0),
-                            bottomRight: Radius.circular(10.0),
-                            topLeft: Radius.circular(10.0),
-                            bottomLeft: Radius.circular(10.0)),
-                      ),
-                      height: 65,
-                      width: 350,
-                      child: Row(
-                        children: [
-                          Image.network(
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/480px-Ethereum-icon-purple.svg.png",
-                          ),
-                          Text(
-                            "Ethereum",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.white),
-                          ),
-                          Spacer(),
-                          Text(
-                            (ethereum + "€"),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.white),
-                          )
-                        ],
-                      ))),
-            ]),
-          )*/
+          createValues(
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/480px-Ethereum-icon-purple.svg.png",
+              "Ethereum"),
+          createValues(
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1024px-Bitcoin.svg.png",
+              "Bitcoin"),
+          createValues(
+              "https://cryptologos.cc/logos/tether-usdt-logo.png", "Tether"),
+          createValues(
+              "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Binance-coin-bnb-logo.png/800px-Binance-coin-bnb-logo.png",
+              "Binancecoin"),
+          createValues(
+              "https://cryptologos.cc/logos/cardano-ada-logo.png", "Cardano"),
+          createValues(
+              "https://cryptologos.cc/logos/xrp-xrp-logo.png?v=023", "Ripple"),
+          createValues("https://cryptologos.cc/logos/solana-sol-logo.png?v=023",
+              "Solana"),
+          createValues(
+              "https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=023",
+              "Polkadot"),
+          createValues(
+              "https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=023",
+              "Dogecoin"),
+          createValues(
+              "https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=023",
+              "Litecoin"),
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(

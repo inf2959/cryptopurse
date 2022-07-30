@@ -173,8 +173,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextButton(
                     onPressed: () async {
 
-                      print (emailController.text);
-                      print (passwordController.text);
                       if (_formKey.currentState!.validate()) {
                         LoadingScreen().show(context);
                         bool navigate = await register(emailController.text, passwordController.text);

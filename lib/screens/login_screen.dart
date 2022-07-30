@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mycryptowallet/main.dart';
 import 'package:mycryptowallet/routes/flutterfire.dart';
+import 'package:mycryptowallet/widgets/loadingscreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -127,11 +128,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await signIn(emailController.text, passwordController.text);
-                      }
-                    },
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          LoadingScreen().show(context);
+                          bool navigate = await signIn(emailController.text, passwordController.text);
+
+                          if (navigate) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MyApp()));
+                          }
+                        }
+                      },
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.only(

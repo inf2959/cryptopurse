@@ -7,6 +7,9 @@ class LoadingScreen{
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop(true);
+          });
           return Container(
             height: 50,
             width: 50,
